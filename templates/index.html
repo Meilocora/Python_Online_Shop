@@ -1,0 +1,27 @@
+{% include "header.html" %}
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          {% for item in all_items %}
+            <div class="col">
+              <div class="card shadow-sm text-center">
+                <h4 class="card-title text-center header-card py-3">{{ item.title.title() }}</h4>
+                  <div class="card-body d-flex align-items-center flex-column">
+                    <img src="{{ item.img_url }}" class="d-block w-100 img-card" alt="{{ item.title }}}}">
+                    <p class="card-text fs-6">{{ item.description }}</p>
+                    {% if current_user.is_authenticated: %}
+                        <a href="{{ url_for('add_to_cart', item_id=item.id) }}" class="btn btn-primary">Add to cart</a>
+                    {% endif %}
+                    <div class="card-footer text-body-secondary mt-auto">
+                        Price: {{ '{:,}'.format(item.price).replace(",",".") }} €
+                    </div>
+                  </div>
+                </div>
+              </div>
+          {% endfor %}
+          </div>
+    </div>
+</div>
+
+{% include "footer.html" %}

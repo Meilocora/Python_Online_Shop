@@ -1,0 +1,24 @@
+.card {
+    width: 42vb;
+    height: 50vb;
+}
+
+.img-card {
+    max-height: 20vb;
+    border-radius: 25px;
+}
+
+.card-footer {
+    width: 100%;
+}
+
+.flash {
+    color: #ee6f57;
+    text-align: center;
+}
+
+.cart-table {
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
+}

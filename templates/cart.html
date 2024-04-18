@@ -1,0 +1,52 @@
+{% include "header.html" %}
+
+<div class="container">
+  {% if cart_items %}
+  <table class="table table-hover cart-table fs-4">
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Price</th>
+        <th scope="col" class="text-center">Actions</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Sum</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item, link in zip(cart_items, links) %}
+      <tr>
+        <td>{{ item.title.title() }}</td>
+        <td>{{ '{:,}'.format(item.price).replace(",",".") }} €</td>
+        <td>
+          <a href="{{ url_for('decrease_amount', link_id=link.id) }}" class="link-offset-2 link-underline link-underline-opacity-0">
+            <button type="button" class="btn btn-outline-danger mx-1 ms-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-dash-circle-fill" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1z"/>
+                </svg>
+            </button>
+          </a>
+          <a href="{{ url_for('increase_amount', link_id=link.id) }}" class="link-offset-2 link-underline link-underline-opacity-0">
+            <button type="button" class="btn btn-outline-success me-auto">
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z"/>
+              </svg>
+            </button>
+          </a>
+        </td>
+        <td class="text-center">{{ link.amount }}x</td>
+        <td class="text-end">{{ '{:,}'.format(item.price*link.amount).replace(",",".") }} €</td>
+      </tr>
+    {% endfor %}
+      <tr>
+        <td colspan="2"><a href="#"><button type="button" class="btn btn-primary btn-lg">Order Items</button></a></td>
+        <td colspan="2" class="table-active text-end">Total:&nbsp;&nbsp;</td>
+        <td class="text-end">{{  '{:,}'.format(sum).replace(",",".") }} €</td>
+      </tr>
+    </tbody>
+  </table>
+  {% else %}
+  <p class="text-center fs-2 my-5">There are no items in your shopping cart yet.</p>
+  {% endif %}
+</div>
+
+{% include "footer.html" %}
